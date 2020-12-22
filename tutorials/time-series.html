@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Análisis de datos longitudinales</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Valentina Andrade" />
+    <script src="libs/header-attrs-2.3/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/rladies.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/rladies-fonts.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.4/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.4/tile-view.js"></script>
+    <link href="libs/animate.css-3.7.2/animate.xaringan.css" rel="stylesheet" />
+    <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="libs/shareon-1.4.1/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon-1.4.1/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain-0.2.4/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain-0.2.4/shareagain.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Análisis de datos longitudinales
+## Taller Universidad Diego Portales
+### Valentina Andrade
+### Universidad de Chile
+### 15 de diciembre 2020 (updated: 2020-12-22)
+
+---
+
+background-image: url("https://cutewallpaper.org/21/moving-wallpaper-gif/Background-GIFs-Get-the-best-GIF-on-GIPHY.gif")
+background-position: center
+background-size: contain
+
+class: inverse center
+
+
+
+
+
+
+
+
+
+
+
+
+# Análisis de datos longitudinales
+
+&lt;br&gt;&lt;br&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;br&gt;&lt;br&gt;
+## [Valentina Andrade](https://valentinaandrade.netlify.app/)  &lt;br&gt;
+
+Taller Universidad Diego Portales&lt;br&gt;**Diciembre, 2020**
+
+
+---
+class: right bottom inverse
+
+# Contenido
+
+--
+
+## 1. Introducción
+
+--
+
+## 2.Análísis con enfoque clásico
+
+--
+
+## 3. Análisis con enfoque económico
+
+---
+class: center, middle
+
+# 1. Introducción
+
+---
+
+class: inverse, center, middle
+
+# 1.1 Datos Longitudinales
+
+---
+
+class: middle
+
+# Datos
+
+- Distintas estructuras de datos según criterios
+
+--
+
+- **Temporal**: transeccionales y **longitudianles** 
+
+--
+
+- **Jerárquico**: simples y con niveles 
+
+---
+
+
+# Concepto de dato longitudinal
+
+
+- En general, suponen **más de una medida en el tiempo**. 
+
+--
+
+- **El tiempo es una dimensión importante**: los eventos pasados pueden influir en eventos futuros.
+
+--
+
+- El "orden" de los datos es información potencialmente importante, a diferencia de lo que ocurre con datos transversales. 
+
+--
+
+- **Tipos**: (a) series de tiempo, (b) combinación de cortes transversales y (c) **panel**
+
+---
+
+class: inverse
+
+# A. Series de tiempo
+
+- Observaciones de una o varias variables a lo largo del tiempo
+
+- Ejemplos: cantidad de protestas mensuales, tasa anual de femicidios, índice de precios al consumidor
+
+fig1
+
+---
+
+# B. Combinación de cortes transversales
+
+- Datos transversales medidos en distintos momentos del tiempo
+
+- **Las observaciones no están repetidas en el tiempo**
+
+- Ejemplo: CASEN 1990-2017, CENSO, ENS
+
+- Análisis de impacto de políticas públicas: Did (diff-in-diff)
+
+fig03
+
+---
+
+class: inverse
+
+# C. Panel
+
+- Medidas **repetidas** de uno o más grupos de unidades de observación (eg. individuos repetidos en el tiempo), **medidas en el tiempo** o en distintos puntos temporales.
+
+--
+
+- Ejemplos en Chile: ELSOC, MOVID-19, ENE, ICMO-IR, ELE
+
+fig5
+
+--
+
+- También se pueden *construir* en base a unidades agregadas **geográficamente**
+
+---
+class: inverse, middle
+
+# ¿Por qué usar panel si es tan caro y difícil obtener estos datos? 🤔
+
+---
+
+# Ventajas
+
+1.Facilita la inferencia causal
+
+- ¿Diseño experimental? ¡No necesariamente!
+
+--
+
+2.Permite trabajar con efectos autoregresivos (o "rezagados")
+
+--
+
+3.Innovación 😄
+
+
+
+---
+class: center, middle
+
+# 2. Análisis con enfoque clásico
+
+---
+
+class: inverse, center, middle
+
+# 2.1 Análisis univariado (ANOVA)
+
+---
+
+# 2.1 Análisis univariado (ANOVA)
+
+- **Univariado** ... *series de tiempo*
+
+- **Objetivo**:  analizar el efecto global que ejerce el tiempo o determinadas variables de crecimiento, tales como la edad, sobre el desarrollo de una variable dependiente *y*. 
+
+- Factor aleatorio (*random*) son los individuos y las las mediciones en el tiempo y los grupos como factores fijos  (*fixed*)
+
+- **Estimación**:  medias de las observaciones y las compara a través de los distintos grupos (clásico ANOVA)
+
+---
+## Supuestos ANOVA
+
+1. **I.I.D**: Observaciones de las observaciones son independientes entre sí. 
+
+2. **Normalidad multivariante**: las puntaciones de los diferentes tiempos o variables han de seguir una distribución normal multivariante
+
+3. **Homogeneidad**: Las matrices de varianza-covarianza de las medias de cada grupo han de ser iguales entre sí
+
+4. **Esfericidad**:  las varianzas de las diferencias entre las distintas medidas repetidas deben ser homogéneas.
+
+---
+class: inverse, middle
+
+# En consecuencia... 
+
+--
+
+# ☹️
+
+---
+class: inverse, center, middle
+
+# 2.2.	Análisis multivariante de la varianza (MANOVA)
+
+---
+
+# 2.2.	Análisis multivariante de la varianza (MANOVA)
+
+- **Objetivo**: Estos modelos se centran en el componente entre-grupos (o entre-sujetos) del análisis, tratando de explicar la variancia total de las variables dependientes en función de las diferencias existentes entre los miembros de los distintos grupos.
+
+- Versión multivariada
+
+- MANOVA generalizado (GMANOVA)
+
+
+---
+class: center, middle
+
+# 3. Análisis con "enfoque económico"
+
+---
+
+class: inverse, center, middle
+
+# 3.1 ATemas que revisar
+
+1.Dependencia de los datos
+
+--
+
+2.Periocidad
+
+--
+
+3.Tendencia
+
+---
+
+class: center, middle
+
+# 3.2 Básicos
+
+A.Estacionariedad
+
+--
+
+B.*Random walk*
+
+--
+
+C.*Dickey Fuller Test*
+
+
+
+
+---
+&lt;style type="text/css"&gt;
+.remark-slide-content {
+    font-size: 30px;
+}
+&lt;/style&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"seal": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
