@@ -130,7 +130,9 @@ class: inverse
 
 - Ejemplos: cantidad de protestas mensuales, tasa anual de femicidios, índice de precios al consumidor
 
-fig1
+---
+
+![](input/img/fig01.png)
 
 ---
 
@@ -144,7 +146,9 @@ fig1
 
 - Análisis de impacto de políticas públicas: Did (diff-in-diff)
 
-fig03
+---
+
+![](input/img/fig03.png)
 
 ---
 
@@ -158,7 +162,10 @@ class: inverse
 
 - Ejemplos en Chile: ELSOC, MOVID-19, ENE, ICMO-IR, ELE
 
-fig5
+---
+
+![](input/img/fig05.png)
+
 
 --
 
@@ -255,7 +262,7 @@ class: center, middle
 
 class: inverse, center, middle
 
-# 3.1 ATemas que revisar
+# 3.1 Temas que revisar
 
 1.Dependencia de los datos
 
@@ -284,8 +291,310 @@ B.*Random walk*
 C.*Dickey Fuller Test*
 
 
+---
+class: inverse, middle
+
+## A. Estacionariedad
+
+- **El comportamiento de las variables no depende del tiempo**
+
+--
+
+# A. Estacionariedad
+
+1. La media de la serie no debe ser una función del tiempo sino que debe ser una constante. 
+
+![](input/img/fig06.png)
+
+# A. Estacionariedad
+
+2. **Homocedasticidad**: La variación de la serie no debe ser una función del tiempo.  
+
+![](input/img/fig07.png)
+
+# A. Estacionariedad
+
+3. La covarianza del primer término i y del segundo término (i + m) no debe ser una función del tiempo  
+
+![](input/img/fig08.png)
+---
+class: inverse, middle
+
+# ¿Por qué importa la estacionalidad de una serie temporal?
+
+- Modelamiento tiene como requisito la estacionariedad
+
+- Métodos para estacionar: *detrending*, *differencing*, etc. 
+
+---
+class: inverse, middle
+
+## B. Random walk
+
+- **Trayectoria alteatoria** (proceso Márkov)
+
+-  La posición o puntaje de una observación ($i$) en cierto instante ($t$) depende solo de su posición en algún instante previo ($t-1$) y alguna variable aleatoria que determina su subsecuente dirección y cambio ($z_1$)
+
+---
+class: middle
+
+# Zombies
+
+![](input/img/zombiesvsrandom.gif)
+---
+class: middle
+
+# Random
+
+![](input/img/random.gif)
+---
+class: inverse, middle
+
+## C. Rho coeffcient
+
+- ρ : **Grado de estacionariead**
+
+- Coeficiente de **autocorrelación** o autocovarianza
+
+- ρ |0 - 1 |
+
+- Si ρ = 0 (sin autocorrelación); ρ = 1 (autocorrelación positiva perfecta); ρ = -1 (autocorrelación negativa perfecta)
+
+---
+# ρ = 1
 
 
+![](input/img/fig09.png)
+---
+# ρ = 0.5
+
+
+![](input/img/fig10.png)
+
+---
+# ρ = 0
+
+
+![](input/img/fig11.png)
+
+---
+class: inverse, middle
+
+## C. Dickey Fuller test
+
+- **Test de hipótesis sobre Rho**
+
+&gt; `\(H_0\)`: ρ -1 = 0 (No estacionaria)
+&gt; `\(H_1\)`: ρ -1 =/= 0 (Estacionaria)
+
+---
+
+class: middle
+
+# En fin, 
+
+--
+
+## Todo esto sirve pues conociendo los valores de Rho y Dickey Fuller se puede corregir la no-estacionariedad
+
+--
+
+### O ser más rigurosos y buscar otro tipo de modelos que estiman considerando esos errores 🤯
+
+---
+
+Antes de que se vayan...
+
+---
+class: inverse, middle
+
+# 3.3 OLS con series de tiempo
+
+---
+# 3.3 OLS con series de tiempo
+
+- Estimación: características comunes a la estimación OLS de corte transversal, también tienen algunas diferencias significativas que es necesario destacar.
+
+- Aleteatoriedad: ustedes me podrán decir *¿pero qué pasa con el supuesto de aleatoriedad de los datos en las series de tiempo, si OLS lo exige como una necesidad?*
+
+Bueno, eso pasa en caso de que la serie sea estacionaria. Si lo es, en ese caso no sería correcto ocupar estos modelos.
+
+- Fórmula
+
+![](input/img/form01.png)
+---
+## Estos modelos se pueden complejizar si agrego los siguientes criterios
+
+1. **Rezagos**: el efecto de la variable pasada en la variable dependiente
+ 
+![](input/img/form02.png)
+
+2. **Propensiones**: propensión de largo plazo o multiplicador de largo plazo
+
+![](input/img/form03.png)
+
+3. Distinción de ciclos: a corto y largo plazo
+
+---
+# 3.4 Modelos ARMA y ARIMA
+
+- **AR**: autoregresivo o *autoregressive*
+
+- **MA**: media móvil o *mean average*
+
+- ARMA (series estacionarias) y ARIMA (series no-estacionarias)
+
+---
+
+## Modelos de series temporales autoregresivos
+
+![](input/img/form04.png)
+
+- Ejemplo: demanda por estufas al gobierno y meses: protestas y meses
+
+
+![](input/img/fig13.png)
+
+## Modelos de series temporales de media móvil
+
+- Ejemplo: mascarillas en pandemia
+
+---
+
+## Diferencia
+
+- En el modelo MA, el ruido / choque se desvanece rápidamente con el tiempo.
+
+- El modelo AR tiene un efecto muy duradero del choque.
+
+### Esto va a definir qué tipo de autocorrelación ocupamos en el modelamiento.
+
+Pregunta 1.
+- Si es AR --&gt; ACF (Autocorrelación completa)
+- Si es MA --&gt; PACF (Autocorrelación parcial) --&gt; Lags o rezagos
+
+Pregunta 2.
+¿Cuántos lags?
+
+---
+
+## Pasos
+
+1. Visualizar la serie de tiempo ¿estacionaria o no estacionaria? (Test Dikey Fuller)
+--
+
+2. Hacer estacionarias los modelos (Detrending, Differenciating y Seasonality)
+--
+
+3. Buscar los mejores parámetros (si es un ACF o PACF) (lags)
+
+--
+
+4. Hacer el modelo (buscar que AIC y BIC sean pequeños)
+
+--
+
+5. Hacer predicciones. 
+
+---
+
+# 3.5 Modelos panel
+
+---
+class: middle 
+
+Partamos con el ejemplo práctico de mi tesis
+
+.center[
+# valentinaandrade.github.io/tesis/
+
+# [🚀](valentinaandrade.github.io/tesis/)
+]
+---
+
+## Algunos básicos
+
+- Panel: series temporales con unidades repetidas en el tiempo
+
+- Debe cumplir los mismos supuestos que las series temporales
+
+- Efectos fijos y efectos aleatorios
+
+---
+
+## Sesgos
+
+- Temporales
+  - Estacionariedad
+  - Tendencia (co-integración)
+  - Cortos y largos plazos
+
+- Unidades
+  - Heterocedasticidad
+  - Desbalance
+  - Atrición 
+  
+---
+class: inverse, middle
+
+## Para cada problema hay distintas soluciones, aquí el punto de la constante discusión en este tipo de modelos sobre qué técnicas ocupar.
+
+---
+
+## Referencias recomendadas
+
+*Ciencias Sociales*
+
+- Lynn, P. (2009). Methods for longitudinal surveys. Chichester: Wiley.
+
+- Menard (2007). Handbook of longitudinal research: Design, measurement, and analysis, Elsevier.
+
+---
+
+## Referencias recomendadas
+
+*Econometría*
+
+- Wooldrige, J (2013) Introductory econometrics: A modern approach.
+  - II Parte: Datos longitudinales
+  - III Parte: Panel (desde el capítulo 13)
+
+- Smith, R and Fuertes, A (2016) Panel Time-Series. London: Department of Economics Mathematics and Statistics, Birkbeck University of London.
+
+---
+## Referencias recomendadas
+
+*Software*
+
+- [Principle of Econometrics in R](https://bookdown.org/ccolonescu/RPoE4/time-series-stationary-variables.html)
+
+  - Desde capítulo 9 hasta el 15. 
+
+- Blackburne III, E. F., &amp; Frank, M. W. (2007). Estimation of nonstationary heterogeneous panels. The Stata Journal, 7(2), 197-208.
+
+- Shumway, R. H., &amp; Stoffer, D. S. (2017). Time series analysis and its applications: with R examples. Springer.
+
+---
+background-image: url("https://cutewallpaper.org/21/moving-wallpaper-gif/Background-GIFs-Get-the-best-GIF-on-GIPHY.gif")
+background-position: center
+background-size: contain
+
+class: inverse center
+
+# Análisis de datos longitudinales
+
+&lt;br&gt;&lt;br&gt;
+
+¡Muchas gracias!
+
+&lt;br&gt;&lt;br&gt;
+## [Valentina Andrade](https://valentinaandrade.netlify.app/)  &lt;br&gt;
+.small[
+- [https://valentinaandrade.netlify.app/](https://valentinaandrade.netlify.app/)
+- [https://github.com/valentinaandrade](https://github.com/valentinaandrade)
+
+Taller Universidad Diego Portales,**Diciembre, 2020**
+]
 ---
 &lt;style type="text/css"&gt;
 .remark-slide-content {
