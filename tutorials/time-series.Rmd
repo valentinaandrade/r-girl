@@ -337,7 +337,7 @@ class: inverse, middle
 
 - **Trayectoria alteatoria** (proceso Márkov)
 
--  La posición o puntaje de una observación ($i$) en cierto instante ($t$) depende solo de su posición en algún instante previo ($t-1$) y alguna variable aleatoria que determina su subsecuente dirección y cambio ($z_1$)
+-  La posición o puntaje de una observación (i) en cierto instante (t) depende solo de su posición en algún instante previo (t-1) y alguna variable aleatoria que determina su subsecuente dirección y cambio (z1). 
 
 ---
 class: middle
@@ -423,21 +423,23 @@ class: inverse, middle
 
 Bueno, eso pasa en caso de que la serie sea estacionaria. Si lo es, en ese caso no sería correcto ocupar estos modelos.
 
-- Fórmula
+---
+
+Fórmula
 
 ![](input/img/form01.png)
 ---
 ## Estos modelos se pueden complejizar si agrego los siguientes criterios
 
-1. **Rezagos**: el efecto de la variable pasada en la variable dependiente
+1.**Rezagos**: el efecto de la variable pasada en la variable dependiente
  
 ![](input/img/form02.png)
 
-2. **Propensiones**: propensión de largo plazo o multiplicador de largo plazo
+2.**Propensiones**: propensión de largo plazo o multiplicador de largo plazo
 
 ![](input/img/form03.png)
 
-3. Distinción de ciclos: a corto y largo plazo
+3.Distinción de ciclos: a corto y largo plazo
 
 ---
 # 3.4 Modelos ARMA y ARIMA
@@ -458,6 +460,8 @@ Bueno, eso pasa en caso de que la serie sea estacionaria. Si lo es, en ese caso 
 
 
 ![](input/img/fig13.png)
+
+---
 
 ## Modelos de series temporales de media móvil
 
