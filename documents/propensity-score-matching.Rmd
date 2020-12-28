@@ -1,0 +1,93 @@
+---
+title: "Propensity Score Matching"
+author: "by Valentina Andrade"
+date: "23-12-2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Definición
+
+Es una técnica estadística para estudios observacionales, que realiza coincidencia o paraeamiento intentando estimar el efecto de una intervención, tratamiento o política en base a covariables que predicen que este recibe un tratamiento.
+
+Esta técnica intenta reducir el sesgo producido debido a la diferencia de resultados que pueden tener el grupo que recibió el tratamiento (*$g_t$*) del grupo que no lo recibió (*$g_c$*), sesgo que sería producido pues la selección o decisión de administrar el tratamiento se debe a las características propias de los grupos. En consecuencia, las diferencias de los grupos se deberían más a un sesgo por características (confusión de variables) que a una diferencia producida por el tratamiento en sí. 
+
+Este sesgo ocurre principalmente pues las mediciones son observacionales y no provienen de un *experimento aleatorio*, donde la aleatorización permite la estimación objetiva de los efectos de tratamiento. Empero, esta técnica permitiría la inferencia causal y correción del sesgo de selección.
+
+## Matching
+
+Consiste en coincidir las características únicas que distinguen a los grupos de control (*$g_c$*) y tratamiento (*$g_t$*), con el obtejivo de hacer a estos dos lo más parecidos posible. Es frecuente que los grupos no compartan características sustantivas (superposición sustancial), entonces evidentemente se generará un error importante. Por ejemplo, puede ocurrir que los grupos de comparación seleccionados para el tratamiento tengan cierto grupo de características "mejores" o que los hacen más propensos y que el grupo de control tenga las "peores" o menos propensos, haciendo que la estimación del modelo muestre parámetros sesgados.
+
+## Scores
+
+La diferencia sustancial entre el simple  pareamiento (*matching*) con el *matching* por puntajes es que PSM cuenta con una probabilidad predicha a la pertenencia del grupo. Estas probabilidades predichas, que luego son los *puntajes* (*scores*), se obtienen de modelos (eg. logísticos) que permiten construir un grupo contafactual.
+
+La estrategia de ocupar las probabilidades predichas también se utiliza para hacer coincidir o parear ya sea como covariables independientes o ya sea, con las otras variables "coincidentes" (pero que no coinciden sustancialmente, produciendo el sesgo por superposición que comentábamos arriba).
+
+### Propensity scores
+
+Se define como la poblabilidad de una unidad (eg. persona, empresa, sindicato) que se le asigna a un tratamiento particular, dado un conjunto de covariables observadas. Su función es reducir el sesgo de selección al equiparar o "estandarizar" grupos basados en estas covariables. 
+
+1.Realizar regresión logística
+
+Matemáticamente, sea $T$ un tratamiento binario [0,1], $Y$ un resultado, y las covariables $X_{n}$, entonces
+
+- $p(x) = Pr(T = 1|X = x)$ , es la **probabilidad condicional
+
+2. Predicción de la puntuación
+
+Sea $Y(0)$ e $Y(1)$ los resultados potenciales bajo control y tratamiento, respectivamente. La asignación del tratamiento no estará condicionalmente confundida si los resultados potenciales son independientes del tratamiento condicionado por las variables previas ($X$). Es decir, 
+
+$T \perp Y(0), Y(1) | X$, donde $\perp$ denota independencia estadística.
+
+ $T \perp Y(0), Y(1) | p(x)$, donde unconfundedness mantiene
+
+
+
+# Procedimiento
+
+1.Realizar una regresión logística:
+
+  - Variable dependiente: $y$ = 1, si participar; $y$ = 0, de lo contrario.
+  - Elegir las variables de "confusión" adecuadas (variables hipotéticamente asociadas con el tratamiento y el resultado).
+  - Obtener la puntuación de propensión: probabilidad predicha ($p$) o $log(\frac p{(1-p)})$.
+
+2.Emparejar cada participante a uno o más de los no participantes según el puntaje de propensión:
+
+  - Vecino más cercano similar
+  - Emparejamiento por calibre (caliper)
+  - Emparejamiento según el valor Mahalanobis junto con PSM
+  - Emparejamiento por estratificación
+  - Emparejamiento por diferencias en diferencias (kernel y los pesos lineales locales)
+
+3.Verificar que las covariables están equilibradas entre el grupo de tratamiento y el de comparación, de la nueva muestra emparejada o ponderada
+
+4.Realizar un análisis multivariado sobre la base de la nueva muestra
+
+  - Utilizar los análisis apropiados para diferentes muestras no independientes
+
+# Discusión
+
+Ventajas
+
+- Mediante el uso de una combinación lineal de las covariables para una única puntuación, que equilibra los grupos de tratamiento y control en un gran número de covariables sin perder un gran número de observaciones. 
+
+
+Desventajas
+
+- **Identificación del modelo**: Ahora bien,si las unidades en el tratamiento y control se equilibraron en un gran número de covariables uno a la vez, serían necesarios un gran número de observaciones para superar el "problema de dimensionalidad" por lo que la introducción de una nueva covariable de equilibrio aumenta el número mínimo necesario de observaciones en la muestra geométricamente.
+
+- **Método observacional**: las covariables son observadas, y por ello los factores que probablemente si afectan a la asignación al tratamiento, pero que no pueden ser observados no pueden ser contabilizados en el procedimiento correspondiente. 
+
+- **Representatividad muestral**: por un lado, requiere grandes muestras y, por otro, con superposición sustancial entre los grupos de tratamiento y control.
+
+- **Sesgo por uso de puntajes**: de la mano con los problemas ocurridos por sesgo de variable latente, hay quienes plantean (Pearl, 2000) que el igualar puntajes en las variables observadas produce un sesgo al confundir esos puntajes con las variables latentes. 
+
+# Referencias
+
+Rosenbaum, Paul R.; Rubin, Donald B. (1983). «The central role of the propensity score in observational studies for causal effects». Biometrika 70 (1): 41-55. doi:10.1093/biomet/70.1.41
+
+Pearl, J. (2000). Causality: Models, Reasoning, and Inference, Cambridge University Press.
