@@ -91,3 +91,105 @@ Desventajas
 Rosenbaum, Paul R.; Rubin, Donald B. (1983). «The central role of the propensity score in observational studies for causal effects». Biometrika 70 (1): 41-55. doi:10.1093/biomet/70.1.41
 
 Pearl, J. (2000). Causality: Models, Reasoning, and Inference, Cambridge University Press.
+
+# PSM
+
+- Youtube.
+
+## Steps 
+
+Pan and Bai, 2015
+
+### 1. Estimate propensity score
+
+Logistics or probit regresion of the treatment condition on the vector of covariates
+
+### 2. Matching
+
+#### Types of matching 
+
+a) Similar
+
+- **Nearest neighbor matching**: match treatment unit $i$ to nearest comparision unit $j$ (i.e, match units with the mist similar propensity scores)
+
+b) Distance
+
+- **Caliper matching**:  match treatment unit $i$ to a comparision unit $j$ within a range (caliper)
+
+- **Radius matching**: like caliper but matches a treatment unit $i$, to multiple comparision units within a band
+
+- **Others**: Magalnobis
+
+#### Post-hoc
+
+- **Greedy and optimal matching**: as soon as a match is made between two observations kept even if a better match could be found later in the data whereas an optimal matching the algorithm is able to reconsider the match and perhaps match two units that have closer propensity scores
+
+- **Replacement**: With replacement, means an observation can actually be matched more than one time, it is put back in the pool of possible maches whereas; without replacement, means that once a match has been made that the observation is taken out and not able to be matched with other units and the data
+
+### 3. Evaluate quality of matching
+
+The goal of the matching techniques is to achieve balance between the treatment and comparision group on observable traits (i.e, the groups look te same on observables beforehand). We can evaluare the quality of the match with several different approaches
+
+#### Approches
+
+a. Compare means (*t-test*)
+
+b. Calculate standarized bias for each covariate (for balance)
+
+c. Percent bias reduction (*PBR*) (for balance)
+
+d. Graphical comparision (histograms, box-plots, etc.)
+
+
+### 4. Evaluate outcomes
+
+Evaluate the effect of an intervention or policy. We can do this again with several ways
+
+1. **Compare means of matched samples**: if our algorith do a god job, our analysis are more cosely approximates a randomized control trial
+
+2. **Run a regression on the matched sample controlling for unbalanced covariates**
+
+3. **Propensity score adjustment**: running a regression controlling for propensity score
+
+## Limitations of PSM
+
+1. **Ommited variable** bias may still be an issue. Observational method still be a problem (eg. Two people say they went to vote in the plebiscite but, in some way, it is likely that this answer is hiding other variables such as political position or others associated with the desirability of the vote.)
+
+2. **Independence conditional on the covariantes**: tt assummes independence conditional on the covariates. In some sense, this is little differente than assumption of *OLS*.
+
+# Q&A
+
+
+- Diferencia con diff in diff
+
+
+# PSM - CMOYA
+
+- Propensity Score Matching (*PSM*) is a method for preprocessing data to improve causal inferences in observatorional data (Pearl, 2012; Morgan and Winship, 2014). The goal is to reduce imbalance in the empirical distribution of the pre-tratment confounders between the threated and control groups (Suart, 2010, p.13). 
+
+In a general, the method balance the data by pruning some observations through matching the more likely PSM will degrade inference (using predict probabilities of the logistic regresion in step 1)
+
+## Goals
+
+# Critics
+
+- increasing imbalance
+
+- model dependence: Lowering imbalance reduces the degree of model dependence in the statistical estimation of causal effects (Ho et al., 2007; Imai, King and Stuart, 2008; Iacus, King and Porro,
+2011b)
+
+- Leads inefficiency biased estimates and research discretion. The second and third, will be produce by PSM since it leaves researchers making qualitative choices among larger sets of causal estimates.
+
+- Hypothesis: If one’s data are so imbalanced that making valid causal inferences from it without heavy modeling assumptions is impossible, then the paradox we identify is avoidable and PSM will reduce imbalance but then the data are probably not very useful for causal inference by any method. Thus, PSM will be productive to other uses (see Pro), because mathematical theorems construct by Rosenbaum and Rubin (1984) are correct and useful, but not **suitable** and relevant to finite sample matching analyses. 
+
+- Evidence: Interaction between propensity scores and matching. 
+
+# Pro
+
+Thus, PSM will be productive to other uses, such regression adjustment (Vansteelandt and Daniel, 2014), inverse weighting (Robins, Hernan and Brumback, 2000), stratification (Rosenbaum and Rubin, 1984), and some uses of the propensity score within other methods (e.g. Diamond and Sekhon, 2012; Imai and Ratkovic, 2014).
+
+# Revisar
+
+- Confounders
+
+- Fully blocked randomized experiments vs completly randomized experiments (Rubin and Thomas, 2000)
