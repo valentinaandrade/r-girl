@@ -1,0 +1,40 @@
+# Reunión 11-01-2021
+
+## Objetivo
+
+- Asistencia a votar produce más contagio. 
+
+## Diseño
+  - DiD
+  - Muestra: Caracteristicas desbalanceadas.
+  - Temporalidad: 2 semanas 
+  - Tendencias paralelas: secular previa (para todos)
+  
+## Modelos
+
+### 1° Step
+  - Matching por atrincion --> lograr una muestra balanceada (para estabilización) --> Especificación hace muy suceptible resultados modelos. 
+
+### 2° Step
+
+  - PSM por contagio y voto
+  
+### 3° Step
+
+  - Como test de robustez: modelo con primarias gobernador y otros modelos (con métodos y específicación distinta)
+  
+## Planificación
+
+- Journal: (1) Social Science and Medicine
+
+- Reuniones:
+
+- Tareas:
+
+  - Votaciones con COVID (Josefina y Monica)
+  
+  - Colapsar base de a dos semanas (Valentina, enviar para)
+  
+  - Correr modelos (Valentina, Cristobal's)
+  
+
